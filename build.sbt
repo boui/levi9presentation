@@ -19,7 +19,9 @@ libraryDependencies ++= {
     "io.spray"            %   "spray-testkit" % sprayV,
     "com.typesafe.akka"   %%  "akka-actor"    % akkaV,
     "com.typesafe.akka"   %%  "akka-testkit"  % akkaV,
-    "org.specs2"          %%  "specs2"        % "2.2.3" % "test"
+    "org.specs2"          %%  "specs2"        % "2.2.3" % "test",
+    "com.ning" % "async-http-client" % "1.7.23",
+    "org.slf4j" % "slf4j-simple" % "1.7.5"
   )
 }
 

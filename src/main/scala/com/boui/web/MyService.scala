@@ -1,4 +1,4 @@
-package com.example
+package com.boui.web
 
 import akka.actor.Actor
 import spray.routing._
@@ -22,19 +22,34 @@ class MyServiceActor extends Actor with MyService {
 
 // this trait defines our service behavior independently from the service actor
 trait MyService extends HttpService {
-
-  val myRoute =
+  private val appRoute =
     path("") {
       get {
         respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
           complete {
             <html>
               <body>
-                <h1>Say hello to <i>spray-routing</i> on <i>spray-can</i>!</h1>
+                <h1>lol1!</h1>
               </body>
             </html>
           }
         }
       }
     }
+  private val serial =
+  path("hey"){
+    get {
+      respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
+        complete {
+          <html>
+            <body>
+              <h1>lol2!</h1>
+            </body>
+          </html>
+        }
+      }
+    }
+  }
+
+  val myRoute = serial ~ appRoute
 }
