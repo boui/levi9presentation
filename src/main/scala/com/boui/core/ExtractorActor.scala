@@ -1,6 +1,6 @@
 package com.boui.core
 
-import akka.actor.Actor
+import akka.actor.{ActorRef, Actor}
 import org.jsoup.nodes.Document
 import org.jsoup.Jsoup
 
@@ -8,17 +8,29 @@ import org.jsoup.Jsoup
  * User: boui
  * Date: 1/21/14
  */
-case class ExtractUrls(html:String, level:Int)
+case class ExtractUrls(html: String, level: Int, coordinator: ActorRef)
 
-class ExtractorActor extends Actor with Serializable{
-      def receive = {
-         case ExtractUrls(html, level) => {
-           val doc:Document = Jsoup.parse(html)
-           import scala.collection.JavaConversions._
-           doc.select("a[href]").map{ url =>
-              println("found new url "+ url)
-              sender ! Download(url.attr("href"), level)
-           }
-         }
+class ExtractorActor extends Actor with Serializable {
+  def receive = {
+    case ExtractUrls(html, level, coordinator) => {
+      val doc: Document = Jsoup.parse(html)
+      if (!html.isEmpty) {
+        import scala.collection.JavaConversions._
+        doc.select("div#mw-content-text a[href]").map {
+          a => {
+            val url = a.attr("href")
+            if (!url.contains("#") && !a.attr("class").contains("new")) {
+              if (url.contains("http") || url.contains("https")) {
+                coordinator ! Enqueue(url, level)
+              } else {
+                if (url.startsWith("/wiki/")) {
+                  coordinator ! Enqueue("http://en.wikipedia.org" + url, level)
+                }
+              }
+            }
+          }
+        }
       }
+    }
+  }
 }
