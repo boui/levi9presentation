@@ -11,8 +11,12 @@ import java.util.concurrent.atomic.AtomicLong
  * Date: 1/21/14
  */
 
+import lol._
+
 case class Enqueue(url: String, level: Int)
+
 case class AllDone()
+
 case class Done()
 
 object counter {
@@ -23,7 +27,7 @@ class CoordinatorActor extends Actor with Serializable {
   val state: ConcurrentHashMap[UUID, String] = new ConcurrentHashMap[UUID, String]()
   val loadQueue = new mutable.Queue[DownloadUrl]()
   val sentMessagesCount = new AtomicLong(0l)
-  val MAX_CONNECTIONS_ALLOWED = 10
+  val MAX_CONNECTIONS_ALLOWED = 35
 
   def receive = serve
 
@@ -32,14 +36,14 @@ class CoordinatorActor extends Actor with Serializable {
     case Enqueue(url, level) => {
       val coordinator = self
       if (sentMessagesCount.get > MAX_CONNECTIONS_ALLOWED) {
-        loadQueue.enqueue(DownloadUrl(UUID.randomUUID(), url, level, coordinator))
+        loadQueue.enqueue(DownloadUrl(md5(url), url, level, coordinator))
         context.become(accumulate)
       } else {
         sentMessagesCount.incrementAndGet()
         println("serve>> New" + sentMessagesCount.get)
 
-        val msg = if (loadQueue.size > 0) loadQueue.dequeue() else DownloadUrl(UUID.randomUUID(), url, level, coordinator)
-        val downloadActor = context.actorOf(Props[DownloadActor], "download-actor-" + msg.id)
+        val msg = if (loadQueue.size > 0) loadQueue.dequeue() else DownloadUrl(md5(url), url, level, coordinator)
+        val downloadActor = context.actorOf(Props[DownloadActor])
         downloadActor ! msg
       }
     }
@@ -47,15 +51,15 @@ class CoordinatorActor extends Actor with Serializable {
     case Done => {
       sentMessagesCount.decrementAndGet()
       println("serve>> Done")
-      if (loadQueue.size > 0){
+      if (loadQueue.size > 0) {
         sentMessagesCount.incrementAndGet()
         val msg = loadQueue.dequeue()
-        val downloadActor = context.actorOf(Props[DownloadActor], "download-actor-" + msg.id)
+        val downloadActor = context.actorOf(Props[DownloadActor])
         downloadActor ! msg
-      }  else self ! AllDone
+      } else self ! AllDone
     }
 
-    case AllDone =>{
+    case AllDone => {
       println("All done, cool")
     }
 
@@ -65,19 +69,19 @@ class CoordinatorActor extends Actor with Serializable {
     case Enqueue(url, level) => {
       val coordinator = self
       println("accum>> Enqueue:" + url)
-      loadQueue.enqueue(DownloadUrl(UUID.randomUUID(), url, level, coordinator))
+      loadQueue.enqueue(DownloadUrl(md5(url), url, level, coordinator))
     }
 
     case Done => {
       if (sentMessagesCount.decrementAndGet() < MAX_CONNECTIONS_ALLOWED) {
         context.unbecome()
-        if (loadQueue.size > 0){
+        if (loadQueue.size > 0) {
           println("accum>> Done")
           sentMessagesCount.incrementAndGet()
           val msg = loadQueue.dequeue()
-          val downloadActor = context.actorOf(Props[DownloadActor], "download-actor-" + msg.id)
+          val downloadActor = context.actorOf(Props[DownloadActor])
           downloadActor ! msg
-        }  else self ! AllDone
+        } else self ! AllDone
       }
     }
   }

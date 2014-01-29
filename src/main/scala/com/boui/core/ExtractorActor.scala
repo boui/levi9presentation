@@ -16,10 +16,10 @@ class ExtractorActor extends Actor with Serializable {
       val doc: Document = Jsoup.parse(html)
       if (!html.isEmpty) {
         import scala.collection.JavaConversions._
-        doc.select("div#mw-content-text a[href]").map {
+        val size = doc.select("div#mw-content-text a[href]").map {
           a => {
             val url = a.attr("href")
-            if (!url.contains("#") && !a.attr("class").contains("new")) {
+            if (!url.contains("#") && !a.attr("class").contains("new") && !url.contains("web.archive.org")) {
               if (url.contains("http") || url.contains("https")) {
                 coordinator ! Enqueue(url, level)
               } else {
@@ -29,7 +29,8 @@ class ExtractorActor extends Actor with Serializable {
               }
             }
           }
-        }
+        }.size
+        println("size again:" + size)
       }
     }
   }
