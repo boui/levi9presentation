@@ -54,7 +54,7 @@ class DownloadActor extends Actor with Serializable {
   def downloading(url: String, id: String, level: Int, coordinator: ActorRef): Receive = {
     case DownloadComplete(html) => {
       val extractorActor = context.actorOf(Props[ExtractorActor])
-      if (level < 1) extractorActor ! ExtractUrls(html, level + 1, coordinator)
+      if (level < 2) extractorActor ! ExtractUrls(html, level + 1, coordinator)
       println("Download complete:" + url + "of level:" + level + "of count:" + counter.i.get)
       coordinator ! Done
       context.unbecome()
@@ -73,16 +73,26 @@ class DownloadCompletionHandler(tracker: ActorRef, id: String) extends AsyncComp
 
   def parse(html: String): String = {
     import scala.collection.JavaConversions._
-    val newHtml = Jsoup.parse(html).select("div#mw-content-text a[href]").map {
+    val parsedHtml = Jsoup.parse(html)
+      parsedHtml.select("div#mw-content-text a[href]").map{
       a => {
-        a.attr("href", md5(a.attr("href")))
+        val url = a.attr("href")
+        if (!url.contains("#") && !a.attr("class").contains("new") && !url.contains("web.archive.org")) {
+          if (url.contains("http") || url.contains("https")) {
+            a.attr("href", "file:///home/boui/files/" + md5(url) + ".html")
+          } else {
+            if (url.startsWith("/wiki/")) {
+              a.attr("href", "file:///home/boui/files/" + md5("http://en.wikipedia.org"+url) + ".html")
+            }
+          }
+        }
       }
     }
-    newHtml.toString()
+    parsedHtml.toString
   }
 
-  lazy val (bos, file:FSDataOutputStream) = {
-    val path = new Path(hdfsURI + "/files/" + id)
+  lazy val (bos, file: FSDataOutputStream) = {
+    val path = new Path(hdfsURI + "/files/" + id + ".html")
     if (hdfs.exists(path)) {
       hdfs.delete(path, true)
     }
@@ -94,7 +104,7 @@ class DownloadCompletionHandler(tracker: ActorRef, id: String) extends AsyncComp
   val inMemoryHtml = new StringBuffer()
 
   def onCompleted(response: Response) = {
-    if (isHtmlPage) {
+    if (isHtmlPage && inMemoryHtml.length() > 0) {
       file.writeChars(parse(inMemoryHtml.toString))
     }
     file.close()
