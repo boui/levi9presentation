@@ -1,0 +1,405 @@
+2014-03-16 18:32:49,321 - [INFO] - from play in main 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2014-03-16 18:34:06,858 - [INFO] - from play in New I/O worker #1 
+Application started (Dev)
+
+2014-03-16 18:34:07,461 - [INFO] - from play in New I/O worker #1 
+Starting application default Akka system.
+
+2014-03-16 18:34:08,413 - [ERROR] - from application in play-internal-execution-context-3 
+
+
+! @6hhjfi3mc - Internal server error, for (GET) [/] ->
+
+play.api.Application$$anon$1: Execution exception[[NoSuchElementException: key not found: m]]
+	at play.api.Application$class.handleError(Application.scala:289) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.DefaultApplication.handleError(Application.scala:383) [play_2.10-2.1.1.jar:2.1.1]
+	at play.core.server.netty.PlayDefaultUpstreamHandler$$anonfun$17$$anonfun$apply$24.apply(PlayDefaultUpstreamHandler.scala:326) [play_2.10-2.1.1.jar:2.1.1]
+	at play.core.server.netty.PlayDefaultUpstreamHandler$$anonfun$17$$anonfun$apply$24.apply(PlayDefaultUpstreamHandler.scala:324) [play_2.10-2.1.1.jar:2.1.1]
+	at play.api.libs.concurrent.PlayPromise$$anonfun$extend1$1.apply(Promise.scala:113) [play_2.10-2.1.1.jar:2.1.1]
+	at play.api.libs.concurrent.PlayPromise$$anonfun$extend1$1.apply(Promise.scala:113) [play_2.10-2.1.1.jar:2.1.1]
+	at play.api.libs.concurrent.PlayPromise$$anonfun$extend$1$$anonfun$apply$1.apply(Promise.scala:104) [play_2.10-2.1.1.jar:2.1.1]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) [scala-library.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) [scala-library.jar:na]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [na:1.7.0_51]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [na:1.7.0_51]
+	at java.lang.Thread.run(Thread.java:744) [na:1.7.0_51]
+java.util.NoSuchElementException: key not found: m
+	at scala.collection.MapLike$class.default(MapLike.scala:228) ~[scala-library.jar:na]
+	at scala.collection.AbstractMap.default(Map.scala:58) ~[scala-library.jar:na]
+	at scala.collection.MapLike$class.apply(MapLike.scala:141) ~[scala-library.jar:na]
+	at scala.collection.AbstractMap.apply(Map.scala:58) ~[scala-library.jar:na]
+	at controllers.InterestingTasks$$anonfun$alg$1$1.apply(InterestingTasks.scala:25) ~[classes/:na]
+	at controllers.InterestingTasks$$anonfun$alg$1$1.apply(InterestingTasks.scala:23) ~[classes/:na]
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244) ~[scala-library.jar:na]
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244) ~[scala-library.jar:na]
+	at scala.collection.Iterator$class.foreach(Iterator.scala:727) ~[scala-library.jar:na]
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1156) ~[scala-library.jar:na]
+	at scala.collection.IterableLike$class.foreach(IterableLike.scala:72) ~[scala-library.jar:na]
+	at scala.collection.AbstractIterable.foreach(Iterable.scala:54) ~[scala-library.jar:na]
+	at scala.collection.TraversableLike$class.map(TraversableLike.scala:244) ~[scala-library.jar:na]
+	at scala.collection.AbstractTraversable.map(Traversable.scala:105) ~[scala-library.jar:na]
+	at controllers.InterestingTasks$.alg$1(InterestingTasks.scala:22) ~[classes/:na]
+	at controllers.InterestingTasks$.go(InterestingTasks.scala:32) ~[classes/:na]
+	at controllers.AppController$$anonfun$index$1$$anonfun$apply$1$$anonfun$apply$2.apply(AppController.scala:33) ~[classes/:na]
+	at controllers.AppController$$anonfun$index$1$$anonfun$apply$1$$anonfun$apply$2.apply(AppController.scala:32) ~[classes/:na]
+	at controllers.Secured$$anonfun$withAuth$3$$anonfun$apply$10.apply(AppController.scala:113) ~[classes/:na]
+	at controllers.Secured$$anonfun$withAuth$3$$anonfun$apply$10.apply(AppController.scala:113) ~[classes/:na]
+	at play.api.mvc.ActionBuilder$$anon$1.apply(Action.scala:217) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2$$anonfun$apply$5$$anonfun$apply$6.apply(Action.scala:109) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2$$anonfun$apply$5$$anonfun$apply$6.apply(Action.scala:109) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.utils.Threads$.withContextClassLoader(Threads.scala:18) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2$$anonfun$apply$5.apply(Action.scala:108) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2$$anonfun$apply$5.apply(Action.scala:106) ~[play_2.10-2.1.1.jar:2.1.1]
+	at scala.Option.map(Option.scala:145) ~[scala-library.jar:na]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2.apply(Action.scala:106) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2.apply(Action.scala:99) ~[play_2.10-2.1.1.jar:2.1.1]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) [scala-library.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) [scala-library.jar:na]
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:137) ~[akka-actor_2.10-2.1.4.jar:na]
+	at akka.dispatch.ForkJoinExecutorConfigurator$MailboxExecutionTask.exec(AbstractDispatcher.scala:506) ~[akka-actor_2.10-2.1.4.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:262) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:975) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1478) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:104) ~[scala-library.jar:na]
+
+2014-03-16 18:34:20,708 - [ERROR] - from application in play-internal-execution-context-4 
+
+
+! @6hhjfim1h - Internal server error, for (GET) [/] ->
+
+play.api.Application$$anon$1: Execution exception[[NoSuchElementException: key not found: m]]
+	at play.api.Application$class.handleError(Application.scala:289) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.DefaultApplication.handleError(Application.scala:383) [play_2.10-2.1.1.jar:2.1.1]
+	at play.core.server.netty.PlayDefaultUpstreamHandler$$anonfun$17$$anonfun$apply$24.apply(PlayDefaultUpstreamHandler.scala:326) [play_2.10-2.1.1.jar:2.1.1]
+	at play.core.server.netty.PlayDefaultUpstreamHandler$$anonfun$17$$anonfun$apply$24.apply(PlayDefaultUpstreamHandler.scala:324) [play_2.10-2.1.1.jar:2.1.1]
+	at play.api.libs.concurrent.PlayPromise$$anonfun$extend1$1.apply(Promise.scala:113) [play_2.10-2.1.1.jar:2.1.1]
+	at play.api.libs.concurrent.PlayPromise$$anonfun$extend1$1.apply(Promise.scala:113) [play_2.10-2.1.1.jar:2.1.1]
+	at play.api.libs.concurrent.PlayPromise$$anonfun$extend$1$$anonfun$apply$1.apply(Promise.scala:104) [play_2.10-2.1.1.jar:2.1.1]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) [scala-library.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) [scala-library.jar:na]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [na:1.7.0_51]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [na:1.7.0_51]
+	at java.lang.Thread.run(Thread.java:744) [na:1.7.0_51]
+java.util.NoSuchElementException: key not found: m
+	at scala.collection.MapLike$class.default(MapLike.scala:228) ~[scala-library.jar:na]
+	at scala.collection.AbstractMap.default(Map.scala:58) ~[scala-library.jar:na]
+	at scala.collection.MapLike$class.apply(MapLike.scala:141) ~[scala-library.jar:na]
+	at scala.collection.AbstractMap.apply(Map.scala:58) ~[scala-library.jar:na]
+	at controllers.InterestingTasks$$anonfun$alg$1$1.apply(InterestingTasks.scala:25) ~[classes/:na]
+	at controllers.InterestingTasks$$anonfun$alg$1$1.apply(InterestingTasks.scala:23) ~[classes/:na]
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244) ~[scala-library.jar:na]
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244) ~[scala-library.jar:na]
+	at scala.collection.Iterator$class.foreach(Iterator.scala:727) ~[scala-library.jar:na]
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1156) ~[scala-library.jar:na]
+	at scala.collection.IterableLike$class.foreach(IterableLike.scala:72) ~[scala-library.jar:na]
+	at scala.collection.AbstractIterable.foreach(Iterable.scala:54) ~[scala-library.jar:na]
+	at scala.collection.TraversableLike$class.map(TraversableLike.scala:244) ~[scala-library.jar:na]
+	at scala.collection.AbstractTraversable.map(Traversable.scala:105) ~[scala-library.jar:na]
+	at controllers.InterestingTasks$.alg$1(InterestingTasks.scala:22) ~[classes/:na]
+	at controllers.InterestingTasks$.go(InterestingTasks.scala:32) ~[classes/:na]
+	at controllers.AppController$$anonfun$index$1$$anonfun$apply$1$$anonfun$apply$2.apply(AppController.scala:33) ~[classes/:na]
+	at controllers.AppController$$anonfun$index$1$$anonfun$apply$1$$anonfun$apply$2.apply(AppController.scala:32) ~[classes/:na]
+	at controllers.Secured$$anonfun$withAuth$3$$anonfun$apply$10.apply(AppController.scala:113) ~[classes/:na]
+	at controllers.Secured$$anonfun$withAuth$3$$anonfun$apply$10.apply(AppController.scala:113) ~[classes/:na]
+	at play.api.mvc.ActionBuilder$$anon$1.apply(Action.scala:217) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2$$anonfun$apply$5$$anonfun$apply$6.apply(Action.scala:109) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2$$anonfun$apply$5$$anonfun$apply$6.apply(Action.scala:109) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.utils.Threads$.withContextClassLoader(Threads.scala:18) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2$$anonfun$apply$5.apply(Action.scala:108) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2$$anonfun$apply$5.apply(Action.scala:106) ~[play_2.10-2.1.1.jar:2.1.1]
+	at scala.Option.map(Option.scala:145) ~[scala-library.jar:na]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2.apply(Action.scala:106) ~[play_2.10-2.1.1.jar:2.1.1]
+	at play.api.mvc.Action$$anonfun$apply$1$$anonfun$apply$2.apply(Action.scala:99) ~[play_2.10-2.1.1.jar:2.1.1]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) [scala-library.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) [scala-library.jar:na]
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:137) ~[akka-actor_2.10-2.1.4.jar:na]
+	at akka.dispatch.ForkJoinExecutorConfigurator$MailboxExecutionTask.exec(AbstractDispatcher.scala:506) ~[akka-actor_2.10-2.1.4.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:262) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:975) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1478) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:104) ~[scala-library.jar:na]
+
+2014-03-16 18:35:01,903 - [INFO] - from play in New I/O worker #1 
+Shutdown application default Akka system.
+
+2014-03-16 18:35:02,160 - [INFO] - from play in New I/O worker #1 
+Application started (Dev)
+
+2014-03-16 18:35:02,201 - [INFO] - from play in New I/O worker #1 
+Starting application default Akka system.
+
+2014-03-16 18:35:03,357 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+start new socket for user -773501168
+
+2014-03-16 18:35:03,374 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+channel for user : -773501168 count : 1
+
+2014-03-16 18:35:03,375 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+channel count : 1
+
+2014-03-16 18:35:24,652 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+closed socket for -773501168
+
+2014-03-16 18:35:24,654 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+removed channel and timer for -773501168
+
+2014-03-16 18:35:27,404 - [INFO] - from play in New I/O worker #1 
+Shutdown application default Akka system.
+
+2014-03-16 18:35:27,526 - [INFO] - from play in New I/O worker #1 
+Application started (Dev)
+
+2014-03-16 18:35:27,568 - [INFO] - from play in New I/O worker #1 
+Starting application default Akka system.
+
+2014-03-16 18:35:27,986 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+start new socket for user -773501168
+
+2014-03-16 18:35:27,990 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+channel for user : -773501168 count : 1
+
+2014-03-16 18:35:27,992 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+channel count : 1
+
+2014-03-16 18:38:09,497 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+closed socket for -773501168
+
+2014-03-16 18:38:09,499 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+removed channel and timer for -773501168
+
+2014-03-16 18:38:11,986 - [INFO] - from play in New I/O worker #1 
+Shutdown application default Akka system.
+
+2014-03-16 18:38:12,102 - [INFO] - from play in New I/O worker #1 
+Application started (Dev)
+
+2014-03-16 18:38:12,134 - [INFO] - from play in New I/O worker #1 
+Starting application default Akka system.
+
+2014-03-16 18:38:12,774 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-2 
+start new socket for user -773501168
+
+2014-03-16 18:38:12,780 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-2 
+channel for user : -773501168 count : 1
+
+2014-03-16 18:38:12,782 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-2 
+channel count : 1
+
+2014-03-16 18:38:36,519 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+closed socket for -773501168
+
+2014-03-16 18:38:36,521 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+removed channel and timer for -773501168
+
+2014-03-16 18:38:39,912 - [INFO] - from play in New I/O worker #1 
+Shutdown application default Akka system.
+
+2014-03-16 18:38:40,017 - [INFO] - from play in New I/O worker #1 
+Application started (Dev)
+
+2014-03-16 18:38:40,064 - [INFO] - from play in New I/O worker #1 
+Starting application default Akka system.
+
+2014-03-16 18:38:40,760 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+start new socket for user -773501168
+
+2014-03-16 18:38:40,765 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+channel for user : -773501168 count : 1
+
+2014-03-16 18:38:40,767 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+channel count : 1
+
+2014-03-16 18:40:32,906 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+closed socket for -773501168
+
+2014-03-16 18:40:32,930 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+removed channel and timer for -773501168
+
+2014-03-16 18:40:38,906 - [INFO] - from play in New I/O worker #1 
+Shutdown application default Akka system.
+
+2014-03-16 18:40:39,706 - [INFO] - from play in New I/O worker #1 
+Application started (Dev)
+
+2014-03-16 18:40:39,776 - [INFO] - from play in New I/O worker #1 
+Starting application default Akka system.
+
+2014-03-16 18:40:41,685 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-6 
+start new socket for user -773501168
+
+2014-03-16 18:40:41,690 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-6 
+channel for user : -773501168 count : 1
+
+2014-03-16 18:40:41,691 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-6 
+channel count : 1
+
+2014-03-16 18:44:30,485 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+closed socket for -773501168
+
+2014-03-16 18:44:30,486 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+removed channel and timer for -773501168
+
+2014-03-16 18:44:32,939 - [INFO] - from play in New I/O worker #7 
+Shutdown application default Akka system.
+
+2014-03-16 18:44:33,404 - [INFO] - from play in New I/O worker #7 
+Application started (Dev)
+
+2014-03-16 18:44:33,430 - [INFO] - from play in New I/O worker #7 
+Starting application default Akka system.
+
+2014-03-16 18:44:34,050 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-3 
+start new socket for user -773501168
+
+2014-03-16 18:44:34,055 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-3 
+channel for user : -773501168 count : 1
+
+2014-03-16 18:44:34,057 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-3 
+channel count : 1
+
+2014-03-16 18:45:00,581 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-3 
+closed socket for -773501168
+
+2014-03-16 18:45:00,584 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-3 
+removed channel and timer for -773501168
+
+2014-03-16 18:45:02,464 - [INFO] - from play in New I/O worker #7 
+Shutdown application default Akka system.
+
+2014-03-16 18:45:02,561 - [INFO] - from play in New I/O worker #7 
+Application started (Dev)
+
+2014-03-16 18:45:02,589 - [INFO] - from play in New I/O worker #7 
+Starting application default Akka system.
+
+2014-03-16 18:45:04,552 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+start new socket for user -773501168
+
+2014-03-16 18:45:04,557 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+channel for user : -773501168 count : 1
+
+2014-03-16 18:45:04,559 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+channel count : 1
+
+2014-03-16 18:45:34,155 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-2 
+closed socket for -773501168
+
+2014-03-16 18:45:34,158 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-2 
+removed channel and timer for -773501168
+
+2014-03-16 18:45:36,023 - [INFO] - from play in New I/O worker #7 
+Shutdown application default Akka system.
+
+2014-03-16 18:45:36,127 - [INFO] - from play in New I/O worker #7 
+Application started (Dev)
+
+2014-03-16 18:45:36,158 - [INFO] - from play in New I/O worker #7 
+Starting application default Akka system.
+
+2014-03-16 18:45:36,638 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+start new socket for user -773501168
+
+2014-03-16 18:45:36,643 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+channel for user : -773501168 count : 1
+
+2014-03-16 18:45:36,644 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+channel count : 1
+
+2014-03-16 18:46:41,245 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+closed socket for -773501168
+
+2014-03-16 18:46:41,246 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+removed channel and timer for -773501168
+
+2014-03-16 18:46:43,265 - [INFO] - from play in New I/O worker #7 
+Shutdown application default Akka system.
+
+2014-03-16 18:46:43,356 - [INFO] - from play in New I/O worker #7 
+Application started (Dev)
+
+2014-03-16 18:46:43,399 - [INFO] - from play in New I/O worker #7 
+Starting application default Akka system.
+
+2014-03-16 18:46:43,858 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+start new socket for user -773501168
+
+2014-03-16 18:46:43,862 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+channel for user : -773501168 count : 1
+
+2014-03-16 18:46:43,864 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+channel count : 1
+
+2014-03-16 18:47:10,143 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-6 
+closed socket for -773501168
+
+2014-03-16 18:47:10,145 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-6 
+removed channel and timer for -773501168
+
+2014-03-16 18:47:12,204 - [INFO] - from play in New I/O worker #7 
+Shutdown application default Akka system.
+
+2014-03-16 18:47:12,282 - [INFO] - from play in New I/O worker #7 
+Application started (Dev)
+
+2014-03-16 18:47:12,307 - [INFO] - from play in New I/O worker #7 
+Starting application default Akka system.
+
+2014-03-16 18:47:12,789 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+start new socket for user -773501168
+
+2014-03-16 18:47:12,793 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+channel for user : -773501168 count : 1
+
+2014-03-16 18:47:12,794 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-4 
+channel count : 1
+
+2014-03-16 18:48:47,631 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+closed socket for -773501168
+
+2014-03-16 18:48:47,633 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-5 
+removed channel and timer for -773501168
+
+2014-03-16 18:48:49,348 - [INFO] - from play in New I/O worker #7 
+Shutdown application default Akka system.
+
+2014-03-16 18:48:49,415 - [INFO] - from play in New I/O worker #7 
+Application started (Dev)
+
+2014-03-16 18:48:49,444 - [INFO] - from play in New I/O worker #7 
+Starting application default Akka system.
+
+2014-03-16 18:48:50,162 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-6 
+start new socket for user -773501168
+
+2014-03-16 18:48:50,166 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-6 
+channel for user : -773501168 count : 1
+
+2014-03-16 18:48:50,168 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-6 
+channel count : 1
+
+2014-03-16 19:22:53,282 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-6 
+closed socket for -773501168
+
+2014-03-16 19:22:53,929 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-6 
+removed channel and timer for -773501168
+
+2014-03-16 19:22:59,003 - [INFO] - from play in New I/O worker #8 
+Shutdown application default Akka system.
+
+2014-03-16 19:22:59,880 - [INFO] - from play in New I/O worker #8 
+Application started (Dev)
+
+2014-03-16 19:22:59,952 - [INFO] - from play in New I/O worker #8 
+Starting application default Akka system.
+
+2014-03-16 19:23:01,109 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-7 
+start new socket for user -773501168
+
+2014-03-16 19:23:01,115 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-7 
+channel for user : -773501168 count : 1
+
+2014-03-16 19:23:01,117 - [DEBUG] - from application.actors.TimerActor in application-akka.actor.default-dispatcher-7 
+channel count : 1
+
