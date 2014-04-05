@@ -257,10 +257,9 @@ object Training1 {
     }
 
     def is_street(combination: List[Int]) = {
-      val list =
-      for   (values <- combination.iterator.sliding(2))
-      yield  values(0) - values(1) == 1
-
+      val list = for (i <- 1 to combination.size - 1) yield {
+        Math.abs(combination(i - 1) - combination(i)) == 1
+      }
       !list.contains(false)
     }
     val sim = similarpairs
@@ -343,21 +342,18 @@ object Training1 {
       println("Spent time on " + name + ":" + (System.currentTimeMillis() - t))
     }
 
-    /** Training1
-    val f1 = ()=>println(simple_nums_tr2also(1000, 30000))
-    timeCheck(f1, "Task1, T1" )
-    val f2 = ()=>expression_signs(List(1, 4, 5, 3, 9, 11, 55, 12, 83, 1, 77, 29, 74, 7, 28, 99, 10, 89, 82, 11, 27, 64, 83, 82), 332)
-    timeCheck(f2, "Task2 v1, T1" )
-    timeCheck(() => max_sub_sequence(List(1, 2, 3, 4, 8, 3, 9, 1, 54, 3, 5, 4, 3, 2, 10, 3, 4)), "maximal subsequence of symbols")
-    timeCheck(() => point_int_triangle((-10000, 10000), (1230, -20934), (1212, 73873), (0, 0)), "is point in triangle")
-    timeCheck(() => pow_big_numbers(3, 2500), "pow really big numbers")
-      * */
-
-
-    timeCheck(() => poker(List(1, 2, 3, 4, 5)))
-    timeCheck(() => poker(List(2, 2, 5, 5, 5)))
-    timeCheck(() => poker(List(4, 4, 4, 4, 5)))
-
+    /** Training1 */
+        val f1 = ()=>println(simple_nums_tr2also(1000, 30000))
+        timeCheck(f1, "Task1, T1" )
+        val f2 = ()=>expression_signs(List(1, 4, 5, 3, 9, 11, 55, 12, 83, 1, 77, 29, 74, 7, 28, 99, 10, 89, 82, 11, 27, 64, 83, 82), 332)
+        timeCheck(f2, "Task2 v1, T1" )
+        timeCheck(() => max_sub_sequence(List(1, 2, 3, 4, 8, 3, 9, 1, 54, 3, 5, 4, 3, 2, 10, 3, 4)), "maximal subsequence of symbols")
+        timeCheck(() => point_int_triangle((-10000, 10000), (1230, -20934), (1212, 73873), (0, 0)), "is point in triangle")
+        timeCheck(() => pow_big_numbers(3, 2500), "pow really big numbers")
+        timeCheck(() => poker(List(12, 2, 3, 4, 5)))
+        timeCheck(() => poker(List(1, 2, 3, 4, 5)))
+        timeCheck(() => poker(List(2, 2, 5, 5, 5)))
+        timeCheck(() => poker(List(4, 4, 4, 4, 5)))
     //
     //    object DB{
     //      val list = Map(1->"Potters", 2->"Everdine")
@@ -604,3 +600,7 @@ object Training1 {
 
 
 }
+
+
+
+
