@@ -216,7 +216,7 @@ object Training1 {
     def div(num: Int, div: Int) = {
       var number = num
       var i = 0
-      while (number - div > 0) {
+      while (number - div >= 0) {
         number -= div
         i += 1
       }
@@ -224,25 +224,58 @@ object Training1 {
     }
 
     def alg() = {
-      val digit = ArrayBuffer.fill(10)(-1)
-      digit(0) = n
+      val digit = ArrayBuffer.fill(m + 1)(-1)
+      digit(0) = 1
       var carry = 0
-      for(p <- 1 to m) {
+      for (p <- 1 to m) {
         var i = 0
-        while(digit(i) != -1) {
+        while (digit(i) != -1) {
           carry += digit(i) * n
           digit(i) = carry % 10
           carry = div(carry, 10)
-          i+=1
+          i += 1
         }
 
-        if(digit(i) == -1 && carry > 0) digit(i) = carry
+        if (digit(i) == -1 && carry > 0) digit(i) = carry
         carry = 0
       }
       digit
-   }
-
+    }
     println(alg().reverse.mkString)
+  }
+
+
+  def poker(combination: List[Int]) = {
+    def similarpairs = {
+      combination.foldLeft(scala.collection.mutable.HashMap[Int, Int]()) {
+        (acc, e) => {
+          if (acc.contains(e)) acc(e) += 1
+          else acc += (e -> 1)
+          acc
+        }
+      }.values.toList.sorted
+    }
+
+    def is_street(combination: List[Int]) = {
+      val list =
+      for   (values <- combination.iterator.sliding(2))
+      yield  values(0) - values(1) == 1
+
+      !list.contains(false)
+    }
+    val sim = similarpairs
+    sim match {
+      case List(5) => println("imposible")
+      case List(1, 4) => println("four of a kind")
+      case List(2, 3) => println("full house")
+      case List(1, 1, 3) => println("three of a kind")
+      case List(1, 2, 2) => println("two pairs")
+      case List(1, 1, 1, 2) => println("pair")
+      case a => {
+        if (is_street(combination.sorted)) println("street")
+        else println("nothing")
+      }
+    }
   }
 
   //    println(NotInMoodFlyer(true).fly)
@@ -317,9 +350,13 @@ object Training1 {
     timeCheck(f2, "Task2 v1, T1" )
     timeCheck(() => max_sub_sequence(List(1, 2, 3, 4, 8, 3, 9, 1, 54, 3, 5, 4, 3, 2, 10, 3, 4)), "maximal subsequence of symbols")
     timeCheck(() => point_int_triangle((-10000, 10000), (1230, -20934), (1212, 73873), (0, 0)), "is point in triangle")
+    timeCheck(() => pow_big_numbers(3, 2500), "pow really big numbers")
       * */
-    timeCheck(() => pow_big_numbers(3, 3), "pow really big numbers")
 
+
+    timeCheck(() => poker(List(1, 2, 3, 4, 5)))
+    timeCheck(() => poker(List(2, 2, 5, 5, 5)))
+    timeCheck(() => poker(List(4, 4, 4, 4, 5)))
 
     //
     //    object DB{
