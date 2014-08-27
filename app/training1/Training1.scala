@@ -1,4 +1,4 @@
-package com.boui.core
+package training1
 
 import scala.Array
 import scala.collection.mutable.ArrayBuffer
@@ -223,7 +223,7 @@ object Training1 {
       i
     }
 
-    def alg() = {
+    def alg(n:Int, m:Int) = {
       val digit = ArrayBuffer.fill(m + 1)(-1)
       digit(0) = 1
       var carry = 0
@@ -241,7 +241,8 @@ object Training1 {
       }
       digit
     }
-    println(alg().reverse.mkString)
+
+    println(alg(n, m).reverse.mkString)
   }
 
 
