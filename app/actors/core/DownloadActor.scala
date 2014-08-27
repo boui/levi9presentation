@@ -11,6 +11,7 @@ import java.nio.charset.Charset
 import org.jsoup.Jsoup
 import java.security.MessageDigest
 import java.math.BigInteger
+import actors.core.FileLoadReceivedPart
 
 case class DownloadUrl(id: String, url: String, level: Int, coordinator: ActorRef)
 
@@ -35,7 +36,7 @@ object Helper {
   }
 }
 
-class DownloadActor extends Actor with Serializable {
+class DownloadActor(socket:ActorRef, targetDir:String) extends Actor with Serializable {
   def receive = initial
 
   import Helper._
@@ -44,7 +45,7 @@ class DownloadActor extends Actor with Serializable {
       println("started" + counter.i.getAndIncrement)
       val me = self
       asyncHttpClient.prepareGet(url).execute(
-        new DownloadCompletionHandler(me, id)
+        new DownloadCompletionHandler(me, id, url, socket, targetDir, level)
       )
       context.become(downloading(url, id, level, coordinator))
     }
@@ -53,7 +54,7 @@ class DownloadActor extends Actor with Serializable {
   def downloading(url: String, id: String, level: Int, coordinator: ActorRef): Receive = {
     case DownloadComplete(html) => {
       val extractorActor = context.actorOf(Props[ExtractorActor])
-      if (level < 2) extractorActor ! ExtractUrls(html, level + 1, coordinator)
+      if (level < 1) extractorActor ! ExtractUrls(html, level + 1, coordinator)
       println("Download complete:" + url + "of level:" + level + "of count:" + counter.i.get)
       coordinator ! Done
       context.unbecome()
@@ -66,32 +67,12 @@ class DownloadActor extends Actor with Serializable {
   }
 }
 
-class DownloadCompletionHandler(tracker: ActorRef, id: String) extends AsyncCompletionHandler[Unit] {
+class DownloadCompletionHandler(tracker: ActorRef, id: String, url:String, socket:ActorRef, targetDir:String, level:Int) extends AsyncCompletionHandler[Unit] {
 
   import Helper._
 
-  def parse(html: String): String = {
-    import scala.collection.JavaConversions._
-    val parsedHtml = Jsoup.parse(html)
-      parsedHtml.select("div#mw-content-text a[href]").map{
-      a => {
-        val url = a.attr("href")
-        if (!url.contains("#") && !a.attr("class").contains("new") && !url.contains("web.archive.org")) {
-          if (url.contains("http") || url.contains("https")) {
-            a.attr("href", "file:///home/boui/files/" + md5(url) + ".html")
-          } else {
-            if (url.startsWith("/wiki/")) {
-              a.attr("href", "file:///home/boui/files/" + md5("http://en.wikipedia.org"+url) + ".html")
-            }
-          }
-        }
-      }
-    }
-    parsedHtml.toString
-  }
-
   lazy val (bos, file: FSDataOutputStream) = {
-    val path = new Path(hdfsURI + "/files" + id + ".html")
+    val path = new Path(hdfsURI + "/files/" + id + s"_$level.html")
     if (hdfs.exists(path)) {
       hdfs.delete(path, true)
     }
@@ -142,10 +123,34 @@ class DownloadCompletionHandler(tracker: ActorRef, id: String) extends AsyncComp
 
   override def onBodyPartReceived(content: HttpResponseBodyPart): STATE = {
     if (isHtmlPage) {
-      inMemoryHtml append Charset.forName("UTF8").decode(content.getBodyByteBuffer)
+      val str = Charset.forName("UTF8").decode(content.getBodyByteBuffer)
+      socket ! FileLoadReceivedPart(id, str.length())
+      inMemoryHtml append str
     } else {
       content.writeTo(bos)
     }
     STATE.CONTINUE
+  }
+
+  def parse(html: String): String = {
+    import scala.collection.JavaConversions._
+    val parsedHtml = Jsoup.parse(html)
+    parsedHtml.select("div#mw-content-text a[href]").map{
+      a => {
+        val url = a.attr("href")
+        if (!url.contains("#") && !a.attr("class").contains("new") && !url.contains("web.archive.org")) {
+          if (url.contains("http") || url.contains("https")) {
+            a.attr("href", targetDir + md5(url) + s"_${level+1}.html")
+            a.attr("alt", s"${level < 2}")
+          } else {
+            if (url.startsWith("/wiki/")) {
+              a.attr("href", targetDir + md5("http://en.wikipedia.org"+url)+s"_${level+1}.html")
+              a.attr("alt", s"${level < 2}")
+            }
+          }
+        }
+      }
+    }
+    parsedHtml.toString
   }
 }

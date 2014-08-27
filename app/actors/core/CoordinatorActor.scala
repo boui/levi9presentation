@@ -1,10 +1,11 @@
 package com.boui.core
 
-import akka.actor.{Props, Actor}
+import akka.actor.{ActorRef, Props, Actor}
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 import scala.collection.mutable
 import java.util.concurrent.atomic.AtomicLong
+import actors.core.Info
 
 /**
  * User: boui
@@ -24,7 +25,8 @@ object counter {
   var beginning = System.currentTimeMillis()
 }
 
-class CoordinatorActor extends Actor with Serializable {
+class CoordinatorActor(socket:ActorRef) extends Actor with Serializable {
+  val targetDir = "/home/boui/IdeaProjects/presentation/levi9presentation/public/files/"
   val state: ConcurrentHashMap[UUID, String] = new ConcurrentHashMap[UUID, String]()
   val loadQueue = new mutable.Queue[DownloadUrl]()
   val sentMessagesCount = new AtomicLong(0l)
@@ -42,9 +44,8 @@ class CoordinatorActor extends Actor with Serializable {
       } else {
         sentMessagesCount.incrementAndGet()
         println("serve>> New" + sentMessagesCount.get)
-
         val msg = if (loadQueue.size > 0) loadQueue.dequeue() else DownloadUrl(md5(url), url, level, coordinator)
-        val downloadActor = context.actorOf(Props[DownloadActor])
+        val downloadActor = context.actorOf(Props(new DownloadActor(socket, targetDir)))
         downloadActor ! msg
       }
     }
@@ -55,7 +56,7 @@ class CoordinatorActor extends Actor with Serializable {
       if (loadQueue.size > 0) {
         sentMessagesCount.incrementAndGet()
         val msg = loadQueue.dequeue()
-        val downloadActor = context.actorOf(Props[DownloadActor])
+        val downloadActor = context.actorOf(Props(new DownloadActor(socket, targetDir)))
         downloadActor ! msg
       } else self ! AllDone
     }
@@ -72,7 +73,7 @@ class CoordinatorActor extends Actor with Serializable {
   def accumulate: Receive = {
     case Enqueue(url, level) => {
       val coordinator = self
-      println("accum>> Enqueue:" + url)
+      socket ! Info("accum>> Enqueue:" + url)
       loadQueue.enqueue(DownloadUrl(md5(url), url, level, coordinator))
     }
 
@@ -83,7 +84,7 @@ class CoordinatorActor extends Actor with Serializable {
           println("accum>> Done")
           sentMessagesCount.incrementAndGet()
           val msg = loadQueue.dequeue()
-          val downloadActor = context.actorOf(Props[DownloadActor])
+          val downloadActor = context.actorOf(Props(new DownloadActor(socket, targetDir)))
           downloadActor ! msg
         } else self ! AllDone
       }

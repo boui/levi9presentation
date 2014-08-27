@@ -19,7 +19,11 @@ class ExtractorActor extends Actor with Serializable {
         val size = doc.select("div#mw-content-text a[href]").map {
           a => {
             val url = a.attr("href")
-            if (!url.contains("#") && !a.attr("class").contains("new") && !url.contains("web.archive.org")) {
+            if (!url.contains("#")
+              && !a.attr("class").contains("new")
+              && !url.contains("web.archive.org")
+              && !url.contains("Special:")
+            ) {
               if (url.contains("http") || url.contains("https")) {
                 coordinator ! Enqueue(url, level)
               } else {
